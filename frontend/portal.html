@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071d3b">
+<title>DAYSTAR UNITED FC | Management Portal</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Login Screen with Strict Credential Verification -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div style="text-align:center;margin-bottom:14px">
+      <a href="index.html" style="color:var(--gold,#f2c94c);font-weight:700;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:0.2s">
+        <span>←</span>
+        <span>Back to Public Club Website & News</span>
+      </a>
+    </div>
+
+    <div class="login-header">
+      <img src="assets/daystar-logo.jpg" alt="Daystar United FC Crest" class="login-crest" onerror="this.src='https://via.placeholder.com/80/071d3b/ffffff?text=DFC'">
+      <h2>DAYSTAR UNITED FC</h2>
+      <p>OFFICIAL CLUB MANAGEMENT PORTAL · STRICT ACCESS CONTROL</p>
+    </div>
+    
+    <div id="loginError" class="login-error"></div>
+
+    <form id="loginForm" class="login-form">
+      <div class="field">
+        <label for="usernameInput">Username</label>
+        <input type="text" id="usernameInput" name="username" placeholder="Enter username (e.g. admin, manager, treasurer)" required autofocus autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required autocomplete="new-password">
+      </div>
+      <button type="submit" class="login-submit" id="loginBtn">Sign In to Management Portal</button>
+    </form>
+
+    <div class="demo-logins">
+      <p>Select Account (Click to Select User)</p>
+      <div class="demo-btn-grid">
+        <button type="button" class="demo-btn" data-demo-user="admin">
+          👑 Super Admin / CEO
+          <small>Username: <b>admin</b></small>
+        </button>
+        <button type="button" class="demo-btn" data-demo-user="manager">
+          ⚽ Team Manager / Coach
+          <small>Username: <b>manager</b></small>
+        </button>
+        <button type="button" class="demo-btn" data-demo-user="treasurer">
+          💰 Treasurer
+          <small>Username: <b>treasurer</b></small>
+        </button>
+        <button type="button" class="demo-btn" data-demo-user="secretary">
+          📋 Secretary General
+          <small>Username: <b>secretary</b></small>
+        </button>
+        <button type="button" class="demo-btn" data-demo-user="viewer">
+          👁️ Read-Only Viewer
+          <small>Username: <b>viewer</b></small>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main App Shell -->
+<div id="appContainer" class="app-shell" style="display:none">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="assets/daystar-logo.jpg" alt="Daystar United FC crest" class="crest" onerror="this.src='https://via.placeholder.com/60/071d3b/ffffff?text=DFC'">
+      <div><strong>DAYSTAR UNITED FC</strong><small>COMMUNITY-BASED ORGANISATION</small></div>
+    </div>
+    
+    <div class="offline">
+      <span class="live-dot" id="systemLiveDot"></span>
+      <div>
+        <b id="systemModeTitle">AUTHENTICATED SESSION</b>
+        <small id="systemModeDesc">Role-based access enforced</small>
+      </div>
+    </div>
+
+    <!-- Active User Profile Card in Sidebar -->
+    <div class="user-card" id="currentUserCard">
+      <div class="user-info">
+        <div class="user-avatar" id="userAvatar">OR</div>
+        <div>
+          <b id="userFullName">Otuti Ronald</b>
+          <small id="userRoleTitle">Club CEO / Administrator</small>
+          <span class="role-badge" id="userRoleBadge">Super Admin</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+        <button class="logout-btn" id="changeMyPassBtn" title="Change My Password" style="background:#173858;border-color:#355376;font-size:10px;padding:3px 7px">🔑 Password</button>
+        <button class="logout-btn" id="logoutBtn" title="Sign Out" style="font-size:10px;padding:3px 7px">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Strictly Filtered Navigation -->
+    <nav id="navigation">
+      <button class="nav-item active" data-page="dashboard" data-roles="all"><span>▦</span>Dashboard</button>
+      <button class="nav-item" data-page="profile" data-roles="Admin,Secretary"><span>▣</span>Club Profile</button>
+      <button class="nav-item" data-page="members" data-roles="Admin,Secretary"><span>♙</span>Members & Supporters</button>
+      <button class="nav-item" data-page="players" data-roles="Admin,Team Manager"><span>♟</span>Players Management</button>
+      <button class="nav-item" data-page="academy" data-roles="Admin,Team Manager,Secretary" id="navAcademy"><span>🌱</span>Youth Academy</button>
+      <button class="nav-item" data-page="staff" data-roles="Admin,Team Manager"><span>♧</span>Team Management</button>
+      <button class="nav-item" data-page="matches" data-roles="Admin,Team Manager"><span>⚽</span>Matches & Fixtures</button>
+      <button class="nav-item" data-page="activities" data-roles="Admin,Team Manager,Secretary"><span>▤</span>Activities & Events</button>
+      <button class="nav-item" data-page="contributions" data-roles="Admin,Treasurer"><span>♡</span>Contributions & Support</button>
+      <button class="nav-item" data-page="expenses" data-roles="Admin,Treasurer"><span>▣</span>Expenses & Budget</button>
+      <button class="nav-item" data-page="sponsors" data-roles="Admin,Treasurer"><span>🤝</span>Sponsors & Partners</button>
+      <button class="nav-item" data-page="reports" data-roles="Admin,Treasurer"><span>▥</span>Reports & Analytics</button>
+      <button class="nav-item" data-page="cms" data-roles="Admin" id="navCms"><span>📰</span>Website & Media CMS</button>
+      <button class="nav-item" data-page="audit" data-roles="Admin" id="navAudit"><span>🛡️</span>System Activity Log</button>
+      <button class="nav-item" data-page="users" data-roles="Admin" id="navUsers"><span>♜</span>Management & Users</button>
+      <button class="nav-item" data-page="settings" data-roles="Admin" id="navSettings"><span>⚙</span>Settings & Backup</button>
+      <a href="index.html" class="nav-item" style="color:var(--gold,#f2c94c);margin-top:12px;border-top:1px solid #1a3858;display:flex;align-items:center;gap:8px" title="Open Public Website & News Hub">
+        <span>🌐</span>
+        <span>View Public Website ↗</span>
+      </a>
+    </nav>
+    <div class="sidebar-foot"><b>NEVER GIVE UP</b><small>DAYSTAR UNITED FC · OPERATIONS</small></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1>DAYSTAR UNITED FC</h1>
+        <p>COMMUNITY-BASED ORGANISATION <i>•</i> NEVER GIVE UP</p>
+      </div>
+      <div class="top-meta">
+        <span class="status-chip" id="topStatusChip"><span class="live-dot"></span> <span id="chipText">LIVE PORTAL</span></span>
+        <small id="todayLabel"></small>
+      </div>
+    </header>
+    <section id="pageRoot" class="page-root"></section>
+    <footer class="footer">
+      <span>DISCIPLINE</span><i></i>
+      <span>TEAMWORK</span><i></i>
+      <span>DEVELOPMENT</span><i></i>
+      <span>COMMUNITY</span><i></i>
+      <span>EXCELLENCE</span>
+      <b>NEVER GIVE UP</b>
+    </footer>
+  </main>
+</div>
+
+<!-- Modal & Toast Containers -->
+<div id="modalRoot"></div>
+<div id="toastRoot" class="toast-root" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d3b">
+  <title>West Nile Regional League Standings | DAYSTAR UNITED FC</title>
+  <link rel="stylesheet" href="public-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Announcement & Matchday Ticker -->
+  <aside class="top-ticker" aria-label="Club Announcements">
+    <div class="ticker-content">
+      <span class="ticker-tag">LEAGUE STANDINGS</span>
+      <span>West Nile Regional League: <b>Daystar United FC leads Ayivu East Zone</b> with 34 Points · 14 Matches Played · Unbeaten at Alua Playground</span>
+    </div>
+    <div class="ticker-actions">
+      <a href="portal.html" class="ticker-portal-link" title="Club Officials & Staff Login">
+        <span>🔒 Management Portal Login</span>
+        <span>→</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Sticky Main Site Header & Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-group" aria-label="Daystar United FC Homepage">
+        <img src="assets/daystar-logo.jpg" alt="Daystar United FC Official Crest" class="brand-crest" onerror="this.src='https://via.placeholder.com/60/071d3b/ffffff?text=DFC'">
+        <div class="brand-text">
+          <h1>DAYSTAR UNITED FC</h1>
+          <p>COMMUNITY-BASED ORGANISATION · NEVER GIVE UP · ARUA CITY</p>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="news.html" class="nav-link">News & Reports</a>
+        <a href="fixtures.html" class="nav-link">Fixtures & Results</a>
+        <a href="standings.html" class="nav-link active">Standings</a>
+        <a href="squad.html" class="nav-link">Squad</a>
+        <a href="academy.html" class="nav-link">Youth Academy</a>
+        <a href="portal.html" class="portal-cta" title="Staff & Management Login">
+          <span>🛡️</span>
+          <span>Official Portal</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- Page Header Banner -->
+    <div class="page-hero-banner">
+      <h2>West Nile Regional League Standings</h2>
+      <p>Official 2026/2027 Ayivu East Zone Table. Follow Daystar United FC's promotional campaign, goal differential, and recent match form.</p>
+    </div>
+
+    <!-- League Summary KPI Strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:28px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--gold)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Current Position</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">1st Place ⭐</div>
+        <small style="color:#16a34a;font-weight:700;font-size:11px">Zone Leaders (+2 Pts Clear)</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--navy)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Total Points</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">34 Pts</div>
+        <small style="color:var(--text-muted);font-size:11px">From 14 League Fixtures</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid #16a34a">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Match Record</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">10W - 4D - 0L</div>
+        <small style="color:#16a34a;font-weight:700;font-size:11px">Undefeated Season</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--red)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Goal Differential</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">+19 GD</div>
+        <small style="color:var(--text-muted);font-size:11px">27 Scored · 8 Conceded</small>
+      </div>
+    </div>
+
+    <!-- Full Standings Table Card -->
+    <section class="widget-card" style="margin-bottom:30px">
+      <div class="widget-head" style="padding:16px 24px;font-size:14px">
+        <span>🏆 2026/2027 OFFICIAL AYIVU EAST ZONE LEAGUE TABLE</span>
+        <span style="background:var(--gold);color:var(--navy);padding:3px 8px;border-radius:4px;font-size:11px;font-weight:800">UPDATED WEEKLY</span>
+      </div>
+      <div class="widget-body" style="padding:0;overflow-x:auto">
+        <table class="full-standings-table" id="fullStandingsTable">
+          <thead>
+            <tr>
+              <th style="width:50px">POS</th>
+              <th>CLUB</th>
+              <th style="width:50px">P</th>
+              <th style="width:50px">W</th>
+              <th style="width:50px">D</th>
+              <th style="width:50px">L</th>
+              <th style="width:50px">GF</th>
+              <th style="width:50px">GA</th>
+              <th style="width:60px">GD</th>
+              <th style="width:60px">PTS</th>
+              <th style="width:140px">LAST 5 FORM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Populated dynamically by public.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table Footnote & Qualification Rules -->
+      <div style="padding:16px 24px;background:#f8fafc;border-top:1px solid var(--border);font-size:12px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center">
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="width:12px;height:12px;background:#16a34a;border-radius:2px;display:inline-block"></span>
+            <b>Positions 1 & 2:</b> Regional Promotion Playoff
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="width:12px;height:12px;background:#94a3b8;border-radius:2px;display:inline-block"></span>
+            <b>Positions 3 - 8:</b> Mid-Table Safety
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="width:12px;height:12px;background:#dc2626;border-radius:2px;display:inline-block"></span>
+            <b>Positions 9 - 10:</b> Relegation Zone
+          </span>
+        </div>
+        <div>
+          <i>Managed in real time via Daystar United FC Management Portal</i>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2-Column Stats Spotlight: Golden Boot & Defensive Records -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:35px">
+      
+      <!-- Golden Boot Leaders -->
+      <div class="widget-card">
+        <div class="widget-head" style="padding:14px 20px">
+          <span>⚽ LEAGUE TOP GOALSCORERS</span>
+          <span style="font-size:11px;color:var(--gold)">AYIVU EAST ZONE</span>
+        </div>
+        <div class="widget-body" style="padding:16px 20px">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--gold);font-size:16px;width:24px">1</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Otuti Ronald</b>
+                  <div style="font-size:11px;color:var(--red);font-weight:700">Daystar United FC (Captain)</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">11</b>
+                <div style="font-size:10px;color:var(--text-muted)">Goals (14 Apps)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">2</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Denis Aliga</b>
+                  <div style="font-size:11px;color:var(--red);font-weight:700">Daystar United FC</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">8</b>
+                <div style="font-size:10px;color:var(--text-muted)">Goals (14 Apps)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">3</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Samuel Draniku</b>
+                  <div style="font-size:11px;color:var(--red);font-weight:700">Daystar United FC</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">7</b>
+                <div style="font-size:10px;color:var(--text-muted)">Goals (12 Apps)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">4</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Sunday Acidri</b>
+                  <div style="font-size:11px;color:var(--text-muted)">Alua Lions FC</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">6</b>
+                <div style="font-size:10px;color:var(--text-muted)">Goals (14 Apps)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Defensive & Clean Sheet Leaders -->
+      <div class="widget-card">
+        <div class="widget-head" style="padding:14px 20px">
+          <span>🧤 DEFENSIVE STRENGTH & CLEAN SHEETS</span>
+          <span style="font-size:11px;color:var(--gold)">AYIVU EAST ZONE</span>
+        </div>
+        <div class="widget-body" style="padding:16px 20px">
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--gold);font-size:16px;width:24px">1</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Daystar United FC</b>
+                  <div style="font-size:11px;color:var(--text-muted)">Goalkeeper: Felix Ondoma</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:#16a34a">8</b>
+                <div style="font-size:10px;color:var(--text-muted)">Clean Sheets (8 Conceded)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">2</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Oluko Stars FC</b>
+                  <div style="font-size:11px;color:var(--text-muted)">Goalkeeper: Richard Anguyo</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">7</b>
+                <div style="font-size:10px;color:var(--text-muted)">Clean Sheets (11 Conceded)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">3</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Arua Hill Youth FC</b>
+                  <div style="font-size:11px;color:var(--text-muted)">Goalkeeper: James Droma</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">5</b>
+                <div style="font-size:10px;color:var(--text-muted)">Clean Sheets (14 Conceded)</div>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font-weight:900;color:var(--text-muted);font-size:16px;width:24px">4</span>
+                <div>
+                  <b style="color:var(--navy);font-size:14px">Ayivu Tigers FC</b>
+                  <div style="font-size:11px;color:var(--text-muted)">Goalkeeper: Stephen Buga</div>
+                </div>
+              </div>
+              <div style="text-align:right">
+                <b style="font-size:18px;color:var(--navy)">4</b>
+                <div style="font-size:10px;color:var(--text-muted)">Clean Sheets (16 Conceded)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sponsors Strip -->
+    <section class="sponsors-bar">
+      <h5>Proud Partners & Community Backers</h5>
+      <div class="sponsors-list">
+        <div class="sponsor-badge">🏛️ Oluko Subcounty Sports Committee</div>
+        <div class="sponsor-badge">🌾 Ayivu East Farmers & Business Initiative</div>
+        <div class="sponsor-badge">🏫 Alua Community Education Fund</div>
+        <div class="sponsor-badge">⚽ West Nile Football Association</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Club Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <!-- Col 1: About -->
+      <div class="footer-col">
+        <h4>DAYSTAR UNITED FC</h4>
+        <p>
+          Daystar United Football Club is a registered Community-Based Organisation (CBO) dedicated to nurturing talent, empowering young people through football, fostering community solidarity, and competing at the highest level of Ugandan sports.
+        </p>
+        <p style="margin-top:10px;color:var(--gold);font-weight:700">
+          MOTTO: "NEVER GIVE UP"
+        </p>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4>Club Pages</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News & Reports</a></li>
+          <li><a href="fixtures.html">Fixtures & Results</a></li>
+          <li><a href="standings.html">League Standings</a></li>
+          <li><a href="squad.html">First Team Squad</a></li>
+          <li><a href="academy.html">Youth Academy</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Club Administration -->
+      <div class="footer-col">
+        <h4>Club Administration</h4>
+        <ul class="footer-links">
+          <li><a href="portal.html" style="color:var(--gold);font-weight:700">🔒 Official Management Portal</a></li>
+          <li><a href="portal.html">CEO & Executive Login</a></li>
+          <li><a href="portal.html">Technical Team Portal</a></li>
+          <li><a href="portal.html">Youth Academy Desk</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Location & Contact -->
+      <div class="footer-col">
+        <h4>Home Ground & Contact</h4>
+        <p>
+          <b>Home Venue:</b><br>
+          Alua Primary School Playground<br>
+          Oluko Subcounty, Ayivu East Constituency<br>
+          Arua City, West Nile Region, Uganda
+        </p>
+        <p style="margin-top:8px">
+          <b>General Inquiries:</b><br>
+          info@daystarunitedfc.org · +256 (0) 700 000 000
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom Strip -->
+    <div class="footer-bottom">
+      <div>&copy; 2026 Daystar United FC (CBO). All Rights Reserved.</div>
+      <div>Discipline · Teamwork · Development · Excellence · Community</div>
+      <div><a href="portal.html" style="color:var(--gold)">Staff Portal &rarr;</a></div>
+    </div>
+  </footer>
+
+  <script src="public.js"></script>
+</body>
+</html>

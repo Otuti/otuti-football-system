@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071d3b">
+  <title>Youth Football Academy & Parent Registration | DAYSTAR UNITED FC</title>
+  <link rel="stylesheet" href="public-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Announcement & Matchday Ticker -->
+  <aside class="top-ticker" aria-label="Club Announcements">
+    <div class="ticker-content">
+      <span class="ticker-tag">YOUTH ACADEMY</span>
+      <span><b>Daystar Youth Football Academy:</b> Saturday Morning Evaluation Trials at Alua Primary Playground · Free Admission for Oluko & Ayivu East Youth!</span>
+    </div>
+    <div class="ticker-actions">
+      <a href="portal.html" class="ticker-portal-link" title="Club Officials & Staff Login">
+        <span>🔒 Management Portal Login</span>
+        <span>→</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Sticky Main Site Header & Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-group" aria-label="Daystar United FC Homepage">
+        <img src="assets/daystar-logo.jpg" alt="Daystar United FC Official Crest" class="brand-crest" onerror="this.src='https://via.placeholder.com/60/071d3b/ffffff?text=DFC'">
+        <div class="brand-text">
+          <h1>DAYSTAR UNITED FC</h1>
+          <p>COMMUNITY-BASED ORGANISATION · NEVER GIVE UP · ARUA CITY</p>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="news.html" class="nav-link">News & Reports</a>
+        <a href="fixtures.html" class="nav-link">Fixtures & Results</a>
+        <a href="standings.html" class="nav-link">Standings</a>
+        <a href="squad.html" class="nav-link">Squad</a>
+        <a href="academy.html" class="nav-link active">Youth Academy</a>
+        <a href="portal.html" class="portal-cta" title="Staff & Management Login">
+          <span>🛡️</span>
+          <span>Official Portal</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-content" id="academyPageContent">
+
+    <!-- Page Header Banner -->
+    <div class="page-hero-banner">
+      <span class="academy-head-tag" style="background:#fee2e2;color:#dc2626">🌱 GRASSROOTS TALENT DEVELOPMENT</span>
+      <h2>Daystar Youth Football Academy</h2>
+      <p>Nurturing tomorrow's football champions in Oluko Subcounty and Ayivu East Constituency, Arua City. Combining modern tactical football education with disciplined academic tracking and character mentorship.</p>
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#enrollmentFormSection" class="hero-btn" style="background:var(--red);color:#fff">✍️ Enroll for Trials</a>
+        <a href="#academyDivisions" class="hero-btn" style="background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)">View Age Categories &darr;</a>
+      </div>
+    </div>
+
+    <!-- Academy KPI Metrics Strip -->
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:35px">
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--red)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Age Categories</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">4 Divisions</div>
+        <small style="color:var(--text-muted);font-size:11px">U-12 · U-15 · U-17 · U-20</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--navy)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Enrolled Scholars</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">60+ Youngsters</div>
+        <small style="color:var(--text-muted);font-size:11px">From Oluko & Ayivu East</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid var(--gold)">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Community Mission</small>
+        <div style="font-size:26px;font-weight:900;color:var(--navy);margin-top:4px">100% CBO</div>
+        <small style="color:var(--text-muted);font-size:11px">Subsidized & Free Access</small>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px;border-left:4px solid #16a34a">
+        <small style="text-transform:uppercase;font-size:11px;font-weight:700;color:var(--text-muted)">Senior Pathway</small>
+        <div style="font-size:26px;font-weight:900;color:#16a34a;margin-top:4px">8 Graduates ⭐</div>
+        <small style="color:var(--text-muted);font-size:11px">Promoted to Senior Team</small>
+      </div>
+    </div>
+
+    <!-- Section 1: Age-Grade Categories -->
+    <div id="academyDivisions" style="margin-bottom:45px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+        <div>
+          <h3 style="font-size:22px;color:var(--navy);font-weight:900;margin-bottom:4px">⚽ Four Structured Developmental Categories</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0">Every child trains with age-appropriate curriculum, drills, and psychological care.</p>
+        </div>
+      </div>
+
+      <div class="academy-grid" style="margin-top:0">
+        
+        <!-- U-12 Cubs -->
+        <div class="academy-card">
+          <span class="academy-badge u12">U-12 Cubs · Ages 8-12</span>
+          <h4>🦁 Grassroots Cubs</h4>
+          <p>
+            Building lifelong love for football. Focus is on individual ball mastery, agility, balance, fun coordination games, and learning sportsmanship and team discipline.
+          </p>
+          <div class="academy-card-meta">
+            <div>🗓️ <b>Training:</b> Every Saturday, 8:00 AM – 10:00 AM</div>
+            <div>📍 <b>Pitch:</b> Alua Primary School Field A</div>
+            <div>👔 <b>Lead Coach:</b> Denis Aliga & Grassroots Staff</div>
+          </div>
+        </div>
+
+        <!-- U-15 Juniors -->
+        <div class="academy-card">
+          <span class="academy-badge u15">U-15 Juniors · Ages 13-15</span>
+          <h4>⚡ Developmental Juniors</h4>
+          <p>
+            Transitioning to positional roles. Emphasizes passing tempo, movement off the ball, communication, basic set-piece execution, and competitive school fixtures.
+          </p>
+          <div class="academy-card-meta">
+            <div>🗓️ <b>Training:</b> Tue & Thu 4:30 PM, Sat 9:00 AM</div>
+            <div>📍 <b>Pitch:</b> Alua Primary School Field B</div>
+            <div>👔 <b>Lead Coach:</b> Coach Michael Dralega</div>
+          </div>
+        </div>
+
+        <!-- U-17 Youth -->
+        <div class="academy-card">
+          <span class="academy-badge u17">U-17 Youth · Ages 16-17</span>
+          <h4>🦅 Competitive Youth</h4>
+          <p>
+            Tactical sharpness, positional intelligence, match endurance, and regional youth tournaments. Scholars shadow the First Team and learn game management.
+          </p>
+          <div class="academy-card-meta">
+            <div>🗓️ <b>Training:</b> Wed & Fri 4:30 PM, Sat 3:00 PM</div>
+            <div>📍 <b>Pitch:</b> Alua Primary Main Pitch</div>
+            <div>👔 <b>Lead Coach:</b> Head Coach Otuti Ronald</div>
+          </div>
+        </div>
+
+        <!-- U-20 Reserves -->
+        <div class="academy-card">
+          <span class="academy-badge u20">U-20 Reserves · Ages 18-20</span>
+          <h4>🛡️ Pre-Professional Reserves</h4>
+          <p>
+            The direct springboard into Daystar United FC's senior team. High-intensity tactical training, video analysis, physical conditioning, and regional league preparedness.
+          </p>
+          <div class="academy-card-meta">
+            <div>🗓️ <b>Training:</b> Integrated with Senior Team</div>
+            <div>📍 <b>Pitch:</b> Alua Primary Main Pitch</div>
+            <div>👔 <b>Lead Coach:</b> Otuti Ronald & Technical Staff</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 2: Core Academy Pillars & Values -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:32px 28px;margin-bottom:45px">
+      <div style="text-align:center;max-width:700px;margin:0 auto 28px">
+        <span class="academy-head-tag">OUR METHODOLOGY & VALUES</span>
+        <h3 style="font-size:22px;color:var(--navy);font-weight:900;margin-bottom:6px">The 4 Pillars of Daystar Youth Development</h3>
+        <p style="font-size:13px;color:var(--text-muted);margin:0">We believe great footballers must first be disciplined, educated, and responsible community members.</p>
+      </div>
+
+      <div class="academy-pillars-grid" style="margin-bottom:0">
+        
+        <div class="academy-pillar-box">
+          <h5>📚 1. "Education First"</h5>
+          <p>
+            Scholars must attend school regularly and present termly report cards. We coordinate with local Oluko primary and secondary schools to ensure sport never compromises academic success.
+          </p>
+        </div>
+
+        <div class="academy-pillar-box" style="border-left-color:var(--navy)">
+          <h5>⚽ 2. Technical Mastery</h5>
+          <p>
+            Modern training drills focusing on first touch, quick decision making under pressure, and football intelligence. Every child touches the ball hundreds of times per session.
+          </p>
+        </div>
+
+        <div class="academy-pillar-box" style="border-left-color:var(--gold)">
+          <h5>🤝 3. Character & Mentorship</h5>
+          <p>
+            Teaching anti-drug awareness, community service, emotional resilience, teamwork, and Christian ethics under the club's motto: "NEVER GIVE UP".
+          </p>
+        </div>
+
+        <div class="academy-pillar-box" style="border-left-color:#16a34a">
+          <h5>⬆️ 4. Direct Senior Pathway</h5>
+          <p>
+            Outstanding scholars are promoted directly into the Daystar United FC senior squad competing in the West Nile Regional League, providing a realistic path to professional football.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Senior Team Promotion Showcase -->
+    <div style="background:linear-gradient(135deg, #071d3b 0%, #0d2f5d 100%);color:#fff;border-radius:12px;padding:32px;margin-bottom:45px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px">
+        <div>
+          <span style="background:var(--gold);color:var(--navy);font-size:10px;font-weight:900;padding:3px 8px;border-radius:4px;text-transform:uppercase">PROVEN PATHWAY</span>
+          <h3 style="font-size:20px;font-weight:900;margin-top:6px;margin-bottom:4px">Academy Graduates Lighting Up the Senior Team</h3>
+          <p style="font-size:12px;color:#cbd5e1;margin:0">These homegrown athletes began their journey at Alua Playground and now lead our regional league campaign.</p>
+        </div>
+        <a href="squad.html" class="hero-btn" style="background:#fff;color:var(--navy);font-size:12px;padding:10px 18px">View First Team Squad &rarr;</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+        
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div style="width:46px;height:46px;border-radius:50%;background:#dcfce7;color:#16a34a;display:grid;place-items:center;font-weight:900;font-size:16px">DD</div>
+            <div>
+              <b style="font-size:15px;color:#fff">Derrick Draniku</b>
+              <div style="font-size:11px;color:var(--gold)">Senior Right Back · Jersey #2</div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:#cbd5e1;line-height:1.6;margin:0">
+            Joined Daystar Academy at age 14 from Alua Primary. Promoted to Senior Team in 2024. Has started 11 matches this season with 6 clean sheets.
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div style="width:46px;height:46px;border-radius:50%;background:#fee2e2;color:#dc2626;display:grid;place-items:center;font-weight:900;font-size:16px">RJ</div>
+            <div>
+              <b style="font-size:15px;color:#fff">Ronald Otuti Junior</b>
+              <div style="font-size:11px;color:var(--gold)">Senior Forward · Jersey #19</div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:#cbd5e1;line-height:1.6;margin:0">
+            Rose through the U-17 and U-20 ranks. Scored 4 crucial goals in 8 regional league appearances this season with blistering pace down the flanks.
+          </p>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:10px;padding:20px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div style="width:46px;height:46px;border-radius:50%;background:#e0f2fe;color:#0284c7;display:grid;place-items:center;font-weight:900;font-size:16px">JC</div>
+            <div>
+              <b style="font-size:15px;color:#fff">Joel Candia</b>
+              <div style="font-size:11px;color:var(--gold)">U-15 Juniors Captain · Jersey #8</div>
+            </div>
+          </div>
+          <p style="font-size:11px;color:#cbd5e1;line-height:1.6;margin:0">
+            Current midfield prodigy at Oluko Secondary School. Named MVP of the 2026 Ayivu East Interscholastic Cup and training weekly with the reserves.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 4: Current Enrolled Academy Scholars Roster -->
+    <div style="margin-bottom:45px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:14px">
+        <div>
+          <h3 style="font-size:22px;color:var(--navy);font-weight:900;margin-bottom:4px">🌟 Enrolled Academy Scholars Directory</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin:0">Managed in real time by the Club Secretary and Coaching Staff via the Management Portal.</p>
+        </div>
+
+        <!-- Division Filter Pills -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button type="button" class="category-filter-btn active" onclick="filterAcademyScholars('all', this)">All Scholars</button>
+          <button type="button" class="category-filter-btn" onclick="filterAcademyScholars('U-12', this)">U-12 Cubs</button>
+          <button type="button" class="category-filter-btn" onclick="filterAcademyScholars('U-15', this)">U-15 Juniors</button>
+          <button type="button" class="category-filter-btn" onclick="filterAcademyScholars('U-17', this)">U-17 Youth</button>
+          <button type="button" class="category-filter-btn" onclick="filterAcademyScholars('U-20', this)">U-20 Reserves</button>
+        </div>
+      </div>
+
+      <!-- Mount for Scholars Roster Cards -->
+      <div id="academyScholarsRoster" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+        <!-- Populated dynamically by public.js -->
+      </div>
+    </div>
+
+    <!-- Section 5: Online Parent & Guardian Registration Form -->
+    <div id="enrollmentFormSection" class="academy-form-container">
+      <div style="text-align:center;max-width:700px;margin:0 auto 24px">
+        <span class="academy-head-tag" style="background:#dcfce7;color:#16a34a">ONLINE TALENT REGISTRATION</span>
+        <h3 style="font-size:24px;color:var(--navy);font-weight:900;margin-bottom:8px">Register Your Child for Academy Trials</h3>
+        <p style="font-size:13px;color:var(--text-muted);margin:0">
+          Parents and guardians across Oluko Subcounty, Ayivu East, and Arua City can enroll boys and girls aged 8–20 for evaluation trials at Alua Primary School Playground. Applications are directly routed to the Club Technical Desk for review.
+        </p>
+      </div>
+
+      <form id="academyEnrollForm" onsubmit="handleAcademyEnroll(event)">
+        <div class="academy-form-grid">
+          
+          <!-- Child Name -->
+          <div class="academy-form-group">
+            <label for="acadChildName">Child's Full Name *</label>
+            <input type="text" id="acadChildName" placeholder="e.g. Samuel Acidri" required>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="academy-form-group">
+            <label for="acadChildDob">Date of Birth *</label>
+            <input type="date" id="acadChildDob" required>
+          </div>
+
+          <!-- Age Category -->
+          <div class="academy-form-group">
+            <label for="acadCategory">Target Age Division *</label>
+            <select id="acadCategory" required>
+              <option value="U-12 Cubs (Ages 8-12)">🦁 U-12 Cubs (Ages 8-12)</option>
+              <option value="U-15 Juniors (Ages 13-15)">⚡ U-15 Juniors (Ages 13-15)</option>
+              <option value="U-17 Youth (Ages 16-17)">🦅 U-17 Youth (Ages 16-17)</option>
+              <option value="U-20 Reserves (Ages 18-20)">🛡️ U-20 Reserves (Ages 18-20)</option>
+            </select>
+          </div>
+
+          <!-- School Currently Attending -->
+          <div class="academy-form-group">
+            <label for="acadSchool">School Currently Attending *</label>
+            <input type="text" id="acadSchool" placeholder="e.g. Alua Primary School / Oluko Secondary" required>
+          </div>
+
+          <!-- Playing Position -->
+          <div class="academy-form-group">
+            <label for="acadPosition">Preferred Playing Position</label>
+            <select id="acadPosition">
+              <option value="Forward / Striker">Forward / Striker</option>
+              <option value="Attacking Winger">Attacking Winger</option>
+              <option value="Central Midfielder">Central Midfielder</option>
+              <option value="Defensive Midfielder">Defensive Midfielder</option>
+              <option value="Center Back / Defender">Center Back / Defender</option>
+              <option value="Full Back (Right/Left)">Full Back (Right / Left)</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+              <option value="Any Position">Any Position (Developing)</option>
+            </select>
+          </div>
+
+          <!-- Parent / Guardian Name -->
+          <div class="academy-form-group">
+            <label for="acadParentName">Parent / Guardian Full Name *</label>
+            <input type="text" id="acadParentName" placeholder="e.g. Moses Acidri" required>
+          </div>
+
+          <!-- Parent Contact -->
+          <div class="academy-form-group">
+            <label for="acadParentPhone">Parent Phone / WhatsApp Number *</label>
+            <input type="tel" id="acadParentPhone" placeholder="e.g. +256 772 000 000" required>
+          </div>
+
+          <!-- Residence Village / Parish -->
+          <div class="academy-form-group">
+            <label for="acadVillage">Home Village / Parish *</label>
+            <input type="text" id="acadVillage" placeholder="e.g. Alua Village, Bunyu Parish, Oluko Subcounty" required>
+          </div>
+
+          <!-- Medical / Health Notes -->
+          <div class="academy-form-group" style="grid-column: 1 / -1">
+            <label for="acadMedicalNotes">Medical History / Allergies / Notes (Optional)</label>
+            <textarea id="acadMedicalNotes" rows="2" placeholder="List any allergies, asthma, prior fractures, or dietary conditions our medical officer should be aware of..."></textarea>
+          </div>
+
+        </div>
+
+        <div style="margin-top:24px;text-align:center">
+          <button type="submit" class="hero-btn" style="background:var(--red);color:#fff;font-size:14px;padding:14px 32px;box-shadow:0 4px 16px rgba(226, 29, 43, 0.4)">
+            🌟 Submit Academy Trial Application
+          </button>
+          <p style="font-size:11px;color:var(--text-muted);margin-top:10px">
+            By submitting, you agree to have Daystar United FC coaching staff contact you to schedule weekend trials at Alua Playground. Registration is free.
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Venue & Community Training Pitch Info -->
+    <div style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:26px;margin-top:35px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px">
+      <div>
+        <h4 style="font-size:16px;color:var(--navy);font-weight:900;margin-bottom:6px">🏟️ Training Facility & Safety Standards</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin:0;max-width:700px">
+          All youth training sessions take place under supervision at <b>Alua Primary School Playground</b> in Oluko Subcounty. First aid personnel and licensed grassroots coaches are on site during all weekend and afternoon drills. Parents are warmly invited to watch all sessions from the touchline!
+        </p>
+      </div>
+      <a href="fixtures.html" class="hero-btn" style="padding:10px 18px;font-size:12px">View Match Schedule &rarr;</a>
+    </div>
+
+    <!-- Sponsors Strip -->
+    <section class="sponsors-bar">
+      <h5>Proud Partners & Community Backers</h5>
+      <div class="sponsors-list">
+        <div class="sponsor-badge">🏛️ Oluko Subcounty Sports Committee</div>
+        <div class="sponsor-badge">🌾 Ayivu East Farmers & Business Initiative</div>
+        <div class="sponsor-badge">🏫 Alua Community Education Fund</div>
+        <div class="sponsor-badge">⚽ West Nile Football Association</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Club Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <!-- Col 1: About -->
+      <div class="footer-col">
+        <h4>DAYSTAR UNITED FC</h4>
+        <p>
+          Daystar United Football Club is a registered Community-Based Organisation (CBO) dedicated to nurturing talent, empowering young people through football, fostering community solidarity, and competing at the highest level of Ugandan sports.
+        </p>
+        <p style="margin-top:10px;color:var(--gold);font-weight:700">
+          MOTTO: "NEVER GIVE UP"
+        </p>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-col">
+        <h4>Club Pages</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">News & Reports</a></li>
+          <li><a href="fixtures.html">Fixtures & Results</a></li>
+          <li><a href="standings.html">League Standings</a></li>
+          <li><a href="squad.html">First Team Squad</a></li>
+          <li><a href="academy.html">Youth Academy</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Club Administration -->
+      <div class="footer-col">
+        <h4>Club Administration</h4>
+        <ul class="footer-links">
+          <li><a href="portal.html" style="color:var(--gold);font-weight:700">🔒 Official Management Portal</a></li>
+          <li><a href="portal.html">CEO & Executive Login</a></li>
+          <li><a href="portal.html">Technical Team Portal</a></li>
+          <li><a href="portal.html">Youth Academy Desk</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Location & Contact -->
+      <div class="footer-col">
+        <h4>Home Ground & Contact</h4>
+        <p>
+          <b>Home Venue:</b><br>
+          Alua Primary School Playground<br>
+          Oluko Subcounty, Ayivu East Constituency<br>
+          Arua City, West Nile Region, Uganda
+        </p>
+        <p style="margin-top:8px">
+          <b>General Inquiries:</b><br>
+          info@daystarunitedfc.org · +256 (0) 700 000 000
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom Strip -->
+    <div class="footer-bottom">
+      <div>&copy; 2026 Daystar United FC (CBO). All Rights Reserved.</div>
+      <div>Discipline · Teamwork · Development · Excellence · Community</div>
+      <div><a href="portal.html" style="color:var(--gold)">Staff Portal &rarr;</a></div>
+    </div>
+  </footer>
+
+  <script src="public.js"></script>
+</body>
+</html>
