@@ -490,7 +490,7 @@ function renderSquadPage() {
     if (!list || !list.length) return '';
     return `
       <div class="position-group-title">${title}</div>
-      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:24px">
+      <div class="squad-grid" style="margin-bottom:24px">
         ${list.map(p => `
           <div class="player-full-card">
             <div class="player-avatar" style="${p.bg ? `background:${p.bg};` : ''}${p.color ? `color:${p.color};` : ''}">
@@ -940,8 +940,52 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+/**
+ * Mobile Navigation Drawer Toggle & Touch Handling
+ */
+function initMobileNavigation() {
+  const toggle = document.getElementById('mobileNavToggle');
+  const nav = document.getElementById('mainNav');
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = nav.classList.toggle('open');
+    toggle.classList.toggle('active', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close when clicking any nav link
+  nav.querySelectorAll('.nav-link, .portal-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close when tapping outside
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+      nav.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
 // Auto-detect page and initialize
 document.addEventListener('DOMContentLoaded', () => {
+  initMobileNavigation();
   if (document.getElementById('homeHeroBanner')) renderHomePage();
   if (document.getElementById('newsHeroBanner')) renderNewsPage();
   if (document.getElementById('fixturesListContainer')) renderFixturesPage();
