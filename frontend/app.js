@@ -214,8 +214,8 @@ const DEFAULT_AUTHORIZED_ACCOUNTS = {
     role: 'Treasurer',
     title: 'Club Treasurer / Finance Officer',
     badgeClass: 'treasurer',
-    allowedPages: ['dashboard', 'contributions', 'expenses', 'sponsors', 'reports'],
-    canEdit: ['contributions', 'expenses', 'sponsors']
+    allowedPages: ['dashboard', 'contributions', 'expenses', 'sponsors', 'reports', 'cms'],
+    canEdit: ['contributions', 'expenses', 'sponsors', 'cms']
   },
   manager: {
     password: 'DemoManager!2026#',
@@ -747,6 +747,21 @@ function setPage(p) {
   render();
 }
 
+window.goToCmsDonations = function() {
+  if (!canAccessPage('cms')) {
+    toast('Access restricted: Only Admin and Treasurer can edit public donation accounts.', 'error');
+    return;
+  }
+  page = 'cms';
+  activeCmsTab = 'donations';
+  document.querySelectorAll('#navigation .nav-item').forEach(b => b.classList.toggle('active', b.dataset.page === 'cms'));
+  render();
+  setTimeout(() => {
+    const el = document.getElementById('cmsTabDonations');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+};
+
 window.goToCmsMatchCenter = function() {
   if (!canAccessPage('cms')) {
     toast('Access restricted: Only Admin and authorized officials can edit the public Match Center.', 'error');
@@ -884,8 +899,9 @@ function superAdminDashboardHTML() {
         <h3>Executive Actions</h3>
         <span class="muted" style="font-size:10px">Manage any club department</span>
       </div>
-      <div class="quick-grid" style="grid-template-columns:repeat(6,minmax(0,1fr))">
+      <div class="quick-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
         <button class="quick-btn" data-new="contributions"><span>＋</span>Record Contribution</button>
+        <button class="quick-btn" onclick="goToCmsDonations()" style="border-color:#16a34a;background:#f0fdf4"><span>💳</span>Donation & Bank Accounts</button>
         <button class="quick-btn" data-new="expenses"><span>▤</span>Approve Expense</button>
         <button class="quick-btn" data-new="players"><span>♟</span>Register Player</button>
         <button class="quick-btn" data-new="matches"><span>⚽</span>Schedule Match</button>
@@ -1039,8 +1055,9 @@ function treasurerDashboardHTML() {
     <!-- Treasury Quick Actions -->
     <section class="panel">
       <div class="panel-head"><h3>Financial Actions</h3></div>
-      <div class="quick-grid">
+      <div class="quick-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
         <button class="quick-btn" data-new="contributions"><span>＋</span>Record Contribution</button>
+        <button class="quick-btn" onclick="goToCmsDonations()" style="border-color:#16a34a;background:#f0fdf4"><span>💳</span>Donation & Bank Accounts</button>
         <button class="quick-btn" data-new="expenses"><span>▤</span>Record Expense Voucher</button>
         <button class="quick-btn" data-new="sponsors"><span>🤝</span>Add Sponsor Commitment</button>
         <button class="quick-btn" data-goto="reports"><span>▥</span>Generate Financial Report</button>
@@ -1341,6 +1358,9 @@ function moduleHTML(key) {
         <p>Manage, search, edit and export your ${s.label.toLowerCase()} records.</p>
       </div>
       <div class="heading-actions">
+        ${key === 'contributions' ? `
+          <button class="btn green" onclick="goToCmsDonations()" style="background:#16a34a;color:#fff;border-color:#15803d;display:inline-flex;align-items:center;gap:6px"><span>💳</span> Public Bank & MoMo Accounts ↗</button>
+        ` : ''}
         ${key === 'matches' ? `
           <button class="btn blue" onclick="goToCmsMatchCenter()">⚽ Public Match Center & Fixtures ↗</button>
         ` : ''}
@@ -1378,6 +1398,24 @@ function moduleHTML(key) {
         <div class="kpi"><div class="kpi-label">🔥 U-17 Youth</div><div class="kpi-value">${db.academy.filter(x => x.ageCategory?.includes('U-17')).length}</div></div>
         <div class="kpi green"><div class="kpi-label">⭐ Promoted to Senior</div><div class="kpi-value">${db.academy.filter(x => x.status === 'Graduated to Senior').length}</div></div>
       </div>` : ''}
+
+    ${key === 'contributions' ? `
+      <div class="panel" style="background:#f0fdf4;border:1px solid #bbf7d0;margin-bottom:18px;padding:16px 20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+          <div>
+            <h3 style="margin:0;color:#166534;font-size:16px;display:flex;align-items:center;gap:6px">
+              <span>💳</span> Website Donation Accounts & Mobile Money Configuration
+            </h3>
+            <p style="margin:4px 0 0;color:#14532d;font-size:12px;line-height:1.5">
+              Need to add or edit the <b>Bank Accounts</b> (Centenary, Stanbic, etc.) and <b>Mobile Money Numbers / Merchant Codes</b> (MTN MoMo, Airtel Money) displayed to supporters on the public website (<a href="index.html#donationSection" target="_blank" style="font-weight:700;color:#166534;text-decoration:underline">index.html</a>)? Click here to update them live.
+            </p>
+          </div>
+          <button type="button" class="btn green" onclick="goToCmsDonations()" style="background:#16a34a;color:#fff;border-color:#15803d;font-size:13px;padding:9px 18px;font-weight:800;white-space:nowrap">
+            💳 Manage Public Donation Accounts →
+          </button>
+        </div>
+      </div>
+    ` : ''}
 
     ${key === 'contributions' ? `
       <div class="kpi-grid">
@@ -2433,7 +2471,48 @@ const DEFAULT_PUBLIC_CONTENT_SEED = {
     '🌾 Ayivu East Farmers & Business Initiative',
     '🏫 Alua Community Education Fund',
     '⚽ West Nile Football Association'
-  ]
+  ],
+  donationAccounts: {
+    heading: 'Support Daystar United FC Grassroots Football & Academy',
+    subheading: 'Daystar United FC is a registered community-based organisation driving youth empowerment, football development, and discipline in Oluko Subcounty, Ayivu East Constituency, Arua City. Your contributions directly fund youth equipment, player transport across West Nile, and academic scholarships.',
+    treasurerName: 'Club Treasurer / Secretariat',
+    treasurerPhone: '+256 772 123 456',
+    treasurerEmail: 'support@daystarunitedfc.org',
+    banks: [
+      {
+        bankName: 'Centenary Bank Uganda',
+        accountName: 'Daystar United Football Club',
+        accountNumber: '31000987654',
+        branch: 'Arua Branch',
+        currency: 'UGX',
+        swift: 'CERBUGKA'
+      },
+      {
+        bankName: 'Stanbic Bank Uganda',
+        accountName: 'Daystar United Football Club',
+        accountNumber: '9030018273645',
+        branch: 'Arua Branch',
+        currency: 'UGX / USD',
+        swift: 'SBICUGKX'
+      }
+    ],
+    mobileMoney: [
+      {
+        provider: 'MTN Mobile Money',
+        accountName: 'Daystar United FC / Otuti Ronald',
+        number: '0772 123 456',
+        merchantCode: '654321',
+        instructions: 'MoMoPay Merchant: 654321 or Send Money to 0772 123 456'
+      },
+      {
+        provider: 'Airtel Money',
+        accountName: 'Daystar United FC / Otuti Ronald',
+        number: '0701 987 654',
+        merchantCode: '123456',
+        instructions: 'AirtelPay Merchant: 123456 or Send Money to 0701 987 654'
+      }
+    ]
+  }
 };
 
 function loadPublicContent() {
@@ -2452,7 +2531,8 @@ function loadPublicContent() {
       venueAdmission: parsed.venueAdmission || DEFAULT_PUBLIC_CONTENT_SEED.venueAdmission,
       standings: parsed.standings || DEFAULT_PUBLIC_CONTENT_SEED.standings,
       squadSpotlight: parsed.squadSpotlight || DEFAULT_PUBLIC_CONTENT_SEED.squadSpotlight,
-      sponsors: parsed.sponsors || DEFAULT_PUBLIC_CONTENT_SEED.sponsors
+      sponsors: parsed.sponsors || DEFAULT_PUBLIC_CONTENT_SEED.sponsors,
+      donationAccounts: parsed.donationAccounts || DEFAULT_PUBLIC_CONTENT_SEED.donationAccounts
     };
   } catch (e) {
     return { ...DEFAULT_PUBLIC_CONTENT_SEED };
@@ -2541,6 +2621,86 @@ function cmsHTML() {
     </div>
   `).join('');
 
+  const da = content.donationAccounts || {
+    heading: 'Support Daystar United FC Grassroots Football & Academy',
+    subheading: 'Daystar United FC is a registered community-based organisation driving youth empowerment, football development, and discipline in Oluko Subcounty, Ayivu East Constituency, Arua City. Your contributions directly fund youth equipment, player transport across West Nile, and academic scholarships.',
+    treasurerName: 'Club Treasurer / Secretariat',
+    treasurerPhone: '+256 772 123 456',
+    treasurerEmail: 'support@daystarunitedfc.org',
+    banks: [],
+    mobileMoney: []
+  };
+
+  const momoRows = (da.mobileMoney || []).map((m, idx) => `
+    <div class="cms-item-card cms-momo-row" style="background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;position:relative">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0">
+        <span style="font-size:12px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:6px">
+          <span>📱</span> MOBILE MONEY ACCOUNT #${idx + 1}
+        </span>
+        <button type="button" class="btn light small" style="color:#c91525;border-color:#fca5a5" onclick="this.closest('.cms-momo-row').remove()">🗑️ Remove</button>
+      </div>
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+        <div class="field">
+          <label style="font-size:11px">Provider Name (e.g. MTN MoMo / Airtel Money) *</label>
+          <input type="text" class="momo-provider" value="${esc(m.provider)}" required placeholder="e.g. MTN Mobile Money">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Registered Account / Subscriber Name *</label>
+          <input type="text" class="momo-accname" value="${esc(m.accountName)}" required placeholder="e.g. Daystar United FC / Otuti Ronald">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Mobile Phone Number *</label>
+          <input type="text" class="momo-number" value="${esc(m.number)}" required placeholder="e.g. 0772 123 456">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Merchant Code / MoMoPay ID (Optional)</label>
+          <input type="text" class="momo-code" value="${esc(m.merchantCode || '')}" placeholder="e.g. 654321">
+        </div>
+        <div class="field full">
+          <label style="font-size:11px">Payment Instructions / USSD Tip</label>
+          <input type="text" class="momo-instructions" value="${esc(m.instructions || '')}" placeholder="e.g. MoMoPay Merchant: 654321 or Send Money directly to 0772 123 456">
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const bankRows = (da.banks || []).map((b, idx) => `
+    <div class="cms-item-card cms-bank-row" style="background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;position:relative">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0">
+        <span style="font-size:12px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:6px">
+          <span>🏛️</span> BANK ACCOUNT #${idx + 1}
+        </span>
+        <button type="button" class="btn light small" style="color:#c91525;border-color:#fca5a5" onclick="this.closest('.cms-bank-row').remove()">🗑️ Remove</button>
+      </div>
+      <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+        <div class="field">
+          <label style="font-size:11px">Bank Name *</label>
+          <input type="text" class="bank-name" value="${esc(b.bankName)}" required placeholder="e.g. Centenary Bank Uganda">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Account Name *</label>
+          <input type="text" class="bank-accname" value="${esc(b.accountName)}" required placeholder="e.g. Daystar United Football Club">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Account Number *</label>
+          <input type="text" class="bank-accnum" value="${esc(b.accountNumber)}" required placeholder="e.g. 31000987654">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Branch *</label>
+          <input type="text" class="bank-branch" value="${esc(b.branch)}" required placeholder="e.g. Arua Branch">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">Currency</label>
+          <input type="text" class="bank-currency" value="${esc(b.currency || 'UGX')}" placeholder="e.g. UGX or USD">
+        </div>
+        <div class="field">
+          <label style="font-size:11px">SWIFT / BIC Code (For Wire Transfers)</label>
+          <input type="text" class="bank-swift" value="${esc(b.swift || '')}" placeholder="e.g. CERBUGKA">
+        </div>
+      </div>
+    </div>
+  `).join('');
+
   return `
     <div class="page-heading">
       <div>
@@ -2561,6 +2721,7 @@ function cmsHTML() {
       <button type="button" class="cms-tab-btn ${activeCmsTab==='match'?'active':''}" data-cmstab="match">⚽ Match Center, Fixtures & Results</button>
       <button type="button" class="cms-tab-btn ${activeCmsTab==='standings'?'active':''}" data-cmstab="standings">🏆 League Standings</button>
       <button type="button" class="cms-tab-btn ${activeCmsTab==='squad'?'active':''}" data-cmstab="squad">👥 Squad Spotlight</button>
+      <button type="button" class="cms-tab-btn ${activeCmsTab==='donations'?'active':''}" data-cmstab="donations">💳 Public Donation Accounts & MoMo</button>
       ${isAdmin ? `<button type="button" class="cms-tab-btn ${activeCmsTab==='delegation'?'active':''}" data-cmstab="delegation">🛡️ Upload & Content Delegation</button>` : ''}
     </div>
 
@@ -2805,7 +2966,94 @@ function cmsHTML() {
       </form>
     </div>
 
-    <!-- TAB 5: Content Control Delegation (Admin Only) -->
+    <!-- TAB 5: Public Donation Accounts & Mobile Money -->
+    <div id="cmsTabDonations" style="${activeCmsTab==='donations'?'':'display:none'}">
+      <form id="donationAccountsForm">
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h3>💳 Public Donation Accounts, Mobile Money & Bank Transfers</h3>
+              <div class="panel-sub">Configure the bank accounts and mobile money numbers displayed to supporters on the public website (<a href="index.html#donationSection" target="_blank" style="color:var(--navy);font-weight:700">index.html</a>) and in the interactive donation modal.</div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <a href="index.html#donationSection" target="_blank" class="btn light" style="text-decoration:none">🌐 Preview on Website ↗</a>
+              <button type="submit" class="btn red">💾 Save & Publish Donation Accounts</button>
+            </div>
+          </div>
+
+          <!-- Section 1: Campaign Narrative & Treasurer Contacts -->
+          <div style="margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px">
+            <h4 style="margin:0 0 10px;font-size:13px;color:var(--navy);display:flex;align-items:center;gap:6px">
+              <span>📢</span> Public Campaign Message & Accountability
+            </h4>
+            <div class="form-grid" style="grid-template-columns:1fr;gap:12px">
+              <div class="field">
+                <label>Donation Section Headline *</label>
+                <input type="text" id="donHeading" value="${esc(da.heading || 'Support Daystar United FC Grassroots Football & Academy')}" required>
+              </div>
+              <div class="field">
+                <label>Mission Statement / Accountability Narrative *</label>
+                <textarea id="donSubheading" rows="3" required style="resize:vertical">${esc(da.subheading || '')}</textarea>
+                <small class="muted">Explains clearly to supporters and community elders how contributions are utilized (e.g. kits, transport, academy equipment, meals).</small>
+              </div>
+            </div>
+            <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px">
+              <div class="field">
+                <label>Treasurer / Contact Name *</label>
+                <input type="text" id="donTreasurerName" value="${esc(da.treasurerName || 'Club Treasurer / Secretariat')}" required>
+              </div>
+              <div class="field">
+                <label>Treasurer Phone / WhatsApp *</label>
+                <input type="text" id="donTreasurerPhone" value="${esc(da.treasurerPhone || '+256 772 123 456')}" required>
+              </div>
+              <div class="field">
+                <label>Official Inquiry Email</label>
+                <input type="email" id="donTreasurerEmail" value="${esc(da.treasurerEmail || 'support@daystarunitedfc.org')}">
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Mobile Money Numbers -->
+          <div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+              <div>
+                <h4 style="margin:0;font-size:13px;color:var(--navy);display:flex;align-items:center;gap:6px">
+                  <span>📱</span> Official Mobile Money Accounts (MTN MoMo, Airtel Money)
+                </h4>
+                <div class="muted" style="font-size:11px">Local fans and regional supporters can send contributions directly via MoMoPay or direct transfer.</div>
+              </div>
+              <button type="button" class="btn light" id="btnAddMomoRow" style="font-size:11px">＋ Add Another MoMo Number</button>
+            </div>
+            <div id="cmsMomoContainer">
+              ${momoRows}
+            </div>
+          </div>
+
+          <!-- Section 3: Official Bank Accounts -->
+          <div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+              <div>
+                <h4 style="margin:0;font-size:13px;color:var(--navy);display:flex;align-items:center;gap:6px">
+                  <span>🏛️</span> Official Club Bank Accounts (Wire & Branch Transfers)
+                </h4>
+                <div class="muted" style="font-size:11px">For diaspora supporters, corporate sponsors, and institutional partners making larger wire transfers.</div>
+              </div>
+              <button type="button" class="btn light" id="btnAddBankRow" style="font-size:11px">＋ Add Another Bank Account</button>
+            </div>
+            <div id="cmsBankContainer">
+              ${bankRows}
+            </div>
+          </div>
+
+          <div style="margin-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+            <span class="muted" style="font-size:11px">🛡️ All accounts updated here are immediately reflected across the website and donation modal.</span>
+            <button type="submit" class="btn red" style="padding:10px 24px;font-size:13px;font-weight:800">💾 Save & Publish Donation Accounts to Website</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- TAB 6: Content Control Delegation (Admin Only) -->
     ${isAdmin ? `
     <div id="cmsTabDelegation" style="${activeCmsTab==='delegation'?'':'display:none'}">
       <form id="cmsDelegationForm">
@@ -2916,6 +3164,105 @@ function wireCmsPage() {
     sqForm.onsubmit = (e) => {
       e.preventDefault();
       saveSquadSpotlightForm();
+    };
+  }
+
+  // Public Donation Accounts Form & Dynamic Rows
+  const btnAddMomo = document.getElementById('btnAddMomoRow');
+  if (btnAddMomo) {
+    btnAddMomo.onclick = () => {
+      const container = document.getElementById('cmsMomoContainer');
+      if (!container) return;
+      const count = container.querySelectorAll('.cms-momo-row').length + 1;
+      const div = document.createElement('div');
+      div.className = 'cms-item-card cms-momo-row';
+      div.style.cssText = 'background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;position:relative';
+      div.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0">
+          <span style="font-size:12px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:6px">
+            <span>📱</span> MOBILE MONEY ACCOUNT #${count}
+          </span>
+          <button type="button" class="btn light small" style="color:#c91525;border-color:#fca5a5" onclick="this.closest('.cms-momo-row').remove()">🗑️ Remove</button>
+        </div>
+        <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+          <div class="field">
+            <label style="font-size:11px">Provider Name (e.g. MTN MoMo / Airtel Money) *</label>
+            <input type="text" class="momo-provider" value="MTN Mobile Money" required placeholder="e.g. MTN Mobile Money">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Registered Account / Subscriber Name *</label>
+            <input type="text" class="momo-accname" value="Daystar United FC" required placeholder="e.g. Daystar United FC">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Mobile Phone Number *</label>
+            <input type="text" class="momo-number" value="" required placeholder="e.g. 0772 123 456">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Merchant Code / MoMoPay ID (Optional)</label>
+            <input type="text" class="momo-code" value="" placeholder="e.g. 654321">
+          </div>
+          <div class="field full">
+            <label style="font-size:11px">Payment Instructions / USSD Tip</label>
+            <input type="text" class="momo-instructions" value="MoMoPay Merchant or Send Money" placeholder="e.g. MoMoPay or Send Money to Number">
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    };
+  }
+
+  const btnAddBank = document.getElementById('btnAddBankRow');
+  if (btnAddBank) {
+    btnAddBank.onclick = () => {
+      const container = document.getElementById('cmsBankContainer');
+      if (!container) return;
+      const count = container.querySelectorAll('.cms-bank-row').length + 1;
+      const div = document.createElement('div');
+      div.className = 'cms-item-card cms-bank-row';
+      div.style.cssText = 'background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;position:relative';
+      div.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #e2e8f0">
+          <span style="font-size:12px;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:6px">
+            <span>🏛️</span> BANK ACCOUNT #${count}
+          </span>
+          <button type="button" class="btn light small" style="color:#c91525;border-color:#fca5a5" onclick="this.closest('.cms-bank-row').remove()">🗑️ Remove</button>
+        </div>
+        <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
+          <div class="field">
+            <label style="font-size:11px">Bank Name *</label>
+            <input type="text" class="bank-name" value="Centenary Bank Uganda" required placeholder="e.g. Centenary Bank Uganda">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Account Name *</label>
+            <input type="text" class="bank-accname" value="Daystar United Football Club" required placeholder="e.g. Daystar United Football Club">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Account Number *</label>
+            <input type="text" class="bank-accnum" value="" required placeholder="e.g. 31000987654">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Branch *</label>
+            <input type="text" class="bank-branch" value="Arua Branch" required placeholder="e.g. Arua Branch">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">Currency</label>
+            <input type="text" class="bank-currency" value="UGX" placeholder="e.g. UGX or USD">
+          </div>
+          <div class="field">
+            <label style="font-size:11px">SWIFT / BIC Code (For Wire Transfers)</label>
+            <input type="text" class="bank-swift" value="" placeholder="e.g. CERBUGKA">
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    };
+  }
+
+  const donForm = document.getElementById('donationAccountsForm');
+  if (donForm) {
+    donForm.onsubmit = (e) => {
+      e.preventDefault();
+      saveDonationAccountsForm();
     };
   }
 
@@ -3526,6 +3873,47 @@ function saveCmsDelegationForm() {
   toast('Content creation & upload permissions successfully updated and applied!', 'success');
   render();
 }
+
+// Save Public Donation Accounts & Mobile Money Form
+function saveDonationAccountsForm() {
+  const content = loadPublicContent();
+
+  const momoRows = Array.from(document.querySelectorAll('#cmsMomoContainer .cms-momo-row'));
+  const mobileMoney = momoRows.map(r => ({
+    provider: r.querySelector('.momo-provider')?.value.trim() || '',
+    accountName: r.querySelector('.momo-accname')?.value.trim() || '',
+    number: r.querySelector('.momo-number')?.value.trim() || '',
+    merchantCode: r.querySelector('.momo-code')?.value.trim() || '',
+    instructions: r.querySelector('.momo-instructions')?.value.trim() || ''
+  })).filter(m => m.provider || m.number);
+
+  const bankRows = Array.from(document.querySelectorAll('#cmsBankContainer .cms-bank-row'));
+  const banks = bankRows.map(r => ({
+    bankName: r.querySelector('.bank-name')?.value.trim() || '',
+    accountName: r.querySelector('.bank-accname')?.value.trim() || '',
+    accountNumber: r.querySelector('.bank-accnum')?.value.trim() || '',
+    branch: r.querySelector('.bank-branch')?.value.trim() || '',
+    currency: r.querySelector('.bank-currency')?.value.trim() || 'UGX',
+    swift: r.querySelector('.bank-swift')?.value.trim() || ''
+  })).filter(b => b.bankName || b.accountNumber);
+
+  content.donationAccounts = {
+    heading: document.getElementById('donHeading')?.value.trim() || 'Support Daystar United FC Grassroots Football & Academy',
+    subheading: document.getElementById('donSubheading')?.value.trim() || '',
+    treasurerName: document.getElementById('donTreasurerName')?.value.trim() || 'Club Treasurer / Secretariat',
+    treasurerPhone: document.getElementById('donTreasurerPhone')?.value.trim() || '+256 772 123 456',
+    treasurerEmail: document.getElementById('donTreasurerEmail')?.value.trim() || 'support@daystarunitedfc.org',
+    mobileMoney,
+    banks
+  };
+
+  savePublicContent(content);
+  logActivity('update', `Updated public donation accounts (${banks.length} banks, ${mobileMoney.length} mobile money numbers)`);
+  toast('Donation accounts & mobile money numbers saved! Live on public website.', 'success');
+  render();
+}
+
+window.saveDonationAccountsForm = saveDonationAccountsForm;
 
 // Start
 initApp();

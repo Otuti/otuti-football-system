@@ -19,6 +19,9 @@
       <span>West Nile Regional League: <b>Daystar United FC vs Arua Hill Youth FC</b> · Saturday, 4:00 PM EAT · Alua Primary Playground</span>
     </div>
     <div class="ticker-actions">
+      <button type="button" class="ticker-donate-btn" onclick="openDonationModal()" title="Support Daystar United FC via Bank or Mobile Money">
+        <span>💛 Donate to Club</span>
+      </button>
       <a href="portal.html" class="ticker-portal-link" title="Club Officials & Staff Login">
         <span>🔒 Management Portal Login</span>
         <span>→</span>
@@ -51,6 +54,9 @@
         <a href="standings.html" class="nav-link">Standings</a>
         <a href="squad.html" class="nav-link">Squad</a>
         <a href="academy.html" class="nav-link">Youth Academy</a>
+        <button type="button" class="nav-donate-cta" onclick="openDonationModal()" title="Donate / Support Daystar United FC">
+          <span>💛 Donate</span>
+        </button>
         <a href="portal.html" class="portal-cta" title="Staff & Management Login">
           <span>🛡️</span>
           <span>Official Portal</span>
@@ -73,10 +79,15 @@
           <span>📍 Alua Primary School Playground, Oluko</span>
         </div>
         <p class="hero-excerpt">The Stars are putting the finishing touches to intensive training sessions under Coach Otuti Ronald. With momentum surging after their dramatic 2-1 victory over Nebbi Central, Daystar United FC welcome rival contenders Arua Hill Youth FC in a mouthwatering encounter that promises sparks, passion, and electric community support in Ayivu East.</p>
-        <button type="button" class="hero-btn" onclick="openStory('story_hero')">
-          <span>Read Full Story</span>
-          <span>→</span>
-        </button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="hero-btn" onclick="openStory('story_hero')">
+            <span>Read Full Story</span>
+            <span>→</span>
+          </button>
+          <button type="button" class="hero-btn-secondary" onclick="openDonationModal()" title="Support Daystar United FC via Bank or Mobile Money">
+            <span>💛 Support Club</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -236,14 +247,43 @@
 
         <!-- Community Callout -->
         <div class="support-widget">
-          <h4>Support Daystar United FC</h4>
-          <p>We are a community-based organisation driving youth development, discipline, and sports excellence in Arua City.</p>
-          <a href="academy.html" class="btn">Join Our Academy</a>
+          <h4>💛 Support Daystar United FC</h4>
+          <p id="donationSidebarText">Direct community contributions empower our youth academy, matchday logistics, and equipment in Oluko Subcounty.</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button type="button" class="btn" onclick="openDonationModal()" style="background:var(--gold);color:var(--navy);font-weight:900;padding:10px 18px;border-radius:6px;border:none;cursor:pointer;width:100%;font-size:12px;box-shadow:0 3px 10px rgba(242, 201, 76, 0.4)">
+              💳 Donate via MoMo / Bank
+            </button>
+            <a href="academy.html" class="btn" style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);font-size:11px">Join Our Academy</a>
+          </div>
         </div>
 
       </aside>
 
     </div>
+
+    <!-- Official Club Donation & Support Section -->
+    <section class="donation-section" id="donationSection">
+      <div class="donation-card">
+        <div class="donation-card-content">
+          <span class="academy-head-tag" style="background:#fef3c7;color:#b45309">💝 OFFICIAL CLUB DONATIONS & COMMUNITY SUPPORT</span>
+          <h3 id="homeDonationHeading">Support Daystar United FC Grassroots Football & Academy</h3>
+          <p id="homeDonationSubheading">Daystar United FC is a registered community-based organisation driving youth empowerment, football development, and discipline in Oluko Subcounty, Ayivu East Constituency, Arua City. Your contributions directly fund youth equipment, player transport across West Nile, and academic scholarships.</p>
+          <div class="donation-quick-badges" id="homeDonationBadges">
+            <span class="donation-badge-item"><span>📱</span> <span>MTN MoMo:</span> <b>0772 123 456</b></span>
+            <span class="donation-badge-item"><span>📱</span> <span>Airtel Money:</span> <b>0701 987 654</b></span>
+            <span class="donation-badge-item"><span>🏦</span> <span>Centenary Bank:</span> <b>31000987654</b></span>
+            <span class="donation-badge-item"><span>🏦</span> <span>Stanbic Bank:</span> <b>9030018273645</b></span>
+          </div>
+        </div>
+        <div class="donation-card-action">
+          <button type="button" class="hero-btn" onclick="openDonationModal()" style="background:var(--red);color:#fff;font-size:13px;padding:14px 24px;box-shadow:0 4px 18px rgba(226, 29, 43, 0.4);width:100%;justify-content:center">
+            <span>💛 View Bank Accounts & MoMo Numbers</span>
+            <span>→</span>
+          </button>
+          <small style="display:block;margin-top:8px;font-size:11px;color:#cbd5e1;text-align:center">Direct Bank Wire · MTN MoMo · Airtel Money</small>
+        </div>
+      </div>
+    </section>
 
     <!-- Sponsors & Community Partners Strip -->
     <section class="sponsors-bar">

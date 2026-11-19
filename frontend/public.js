@@ -242,7 +242,49 @@ const DEFAULT_PUBLIC_CONTENT = {
     '🌾 Ayivu East Farmers & Business Initiative',
     '🏫 Alua Community Education Fund',
     '⚽ West Nile Football Association'
-  ]
+  ],
+
+  donationAccounts: {
+    heading: 'Support Daystar United FC Grassroots Football & Academy',
+    subheading: 'Daystar United FC is a registered community-based organisation driving youth empowerment, football development, and discipline in Oluko Subcounty, Ayivu East Constituency, Arua City. Your contributions directly fund youth equipment, player transport across West Nile, and academic scholarships.',
+    treasurerName: 'Club Treasurer / Secretariat',
+    treasurerPhone: '+256 772 123 456',
+    treasurerEmail: 'support@daystarunitedfc.org',
+    banks: [
+      {
+        bankName: 'Centenary Bank Uganda',
+        accountName: 'Daystar United Football Club',
+        accountNumber: '31000987654',
+        branch: 'Arua Branch',
+        currency: 'UGX',
+        swift: 'CERBUGKA'
+      },
+      {
+        bankName: 'Stanbic Bank Uganda',
+        accountName: 'Daystar United Football Club',
+        accountNumber: '9030018273645',
+        branch: 'Arua Branch',
+        currency: 'UGX / USD',
+        swift: 'SBICUGKX'
+      }
+    ],
+    mobileMoney: [
+      {
+        provider: 'MTN Mobile Money',
+        accountName: 'Daystar United FC / Otuti Ronald',
+        number: '0772 123 456',
+        merchantCode: '654321',
+        instructions: 'MoMoPay Merchant: 654321 or Send Money to 0772 123 456'
+      },
+      {
+        provider: 'Airtel Money',
+        accountName: 'Daystar United FC / Otuti Ronald',
+        number: '0701 987 654',
+        merchantCode: '123456',
+        instructions: 'AirtelPay Merchant: 123456 or Send Money to 0701 987 654'
+      }
+    ]
+  }
 };
 
 function getPublicContent() {
@@ -261,7 +303,8 @@ function getPublicContent() {
       venueAdmission: parsed.venueAdmission || DEFAULT_PUBLIC_CONTENT.venueAdmission,
       standings: parsed.standings || DEFAULT_PUBLIC_CONTENT.standings,
       squad: parsed.squad || DEFAULT_PUBLIC_CONTENT.squad,
-      sponsors: parsed.sponsors || DEFAULT_PUBLIC_CONTENT.sponsors
+      sponsors: parsed.sponsors || DEFAULT_PUBLIC_CONTENT.sponsors,
+      donationAccounts: parsed.donationAccounts || DEFAULT_PUBLIC_CONTENT.donationAccounts
     };
   } catch (e) {
     return DEFAULT_PUBLIC_CONTENT;
@@ -299,10 +342,15 @@ function renderHomePage() {
           <span>📍 ${escapeHtml(heroStory.location || 'Alua Primary Playground')}</span>
         </div>
         <p class="hero-excerpt">${escapeHtml(heroStory.excerpt)}</p>
-        <button type="button" class="hero-btn" onclick="openStory('${heroStory.id}')">
-          <span>Read Full Story</span>
-          <span>→</span>
-        </button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="button" class="hero-btn" onclick="openStory('${heroStory.id}')">
+            <span>Read Full Story</span>
+            <span>→</span>
+          </button>
+          <button type="button" class="hero-btn-secondary" onclick="openDonationModal()" title="Support Daystar United FC via Bank or Mobile Money">
+            <span>💛 Support Club</span>
+          </button>
+        </div>
       </div>
     `;
   }
@@ -325,6 +373,29 @@ function renderHomePage() {
         </div>
       </article>
     `).join('');
+  }
+
+  // Home Donation Feature Banner
+  const don = data.donationAccounts || DEFAULT_PUBLIC_CONTENT.donationAccounts;
+  const donHeading = document.getElementById('homeDonationHeading');
+  if (donHeading && don && don.heading) donHeading.textContent = don.heading;
+
+  const donSub = document.getElementById('homeDonationSubheading');
+  if (donSub && don && don.subheading) donSub.textContent = don.subheading;
+
+  const donBadges = document.getElementById('homeDonationBadges');
+  if (donBadges && don) {
+    const momoBadges = (don.mobileMoney || []).map(m => `
+      <span class="donation-badge-item">
+        <span>📱</span> <span>${escapeHtml(m.provider)}:</span> <b>${escapeHtml(m.number || m.merchantCode)}</b>
+      </span>
+    `).join('');
+    const bankBadges = (don.banks || []).map(b => `
+      <span class="donation-badge-item">
+        <span>🏦</span> <span>${escapeHtml(b.bankName)}:</span> <b>${escapeHtml(b.accountNumber)}</b>
+      </span>
+    `).join('');
+    donBadges.innerHTML = momoBadges + bankBadges;
   }
 
   renderSharedWidgets(data);
@@ -975,12 +1046,193 @@ function initMobileNavigation() {
 
   // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('open')) {
-      nav.classList.remove('open');
-      toggle.classList.remove('active');
-      toggle.setAttribute('aria-expanded', 'false');
+    if (e.key === 'Escape') {
+      closeStory();
+      closeAcademyModal();
+      closeDonationModal();
+      if (nav.classList.contains('open')) {
+        nav.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     }
   });
+}
+
+/**
+ * Interactive Public Donation Modal & Payment Channels Engine
+ */
+function openDonationModal() {
+  const data = getPublicContent();
+  const don = data.donationAccounts || DEFAULT_PUBLIC_CONTENT.donationAccounts;
+
+  let modalBackdrop = document.getElementById('donationModalBackdrop');
+  if (!modalBackdrop) {
+    modalBackdrop = document.createElement('div');
+    modalBackdrop.id = 'donationModalBackdrop';
+    modalBackdrop.className = 'news-modal-backdrop';
+    modalBackdrop.onclick = (e) => {
+      if (e.target === modalBackdrop) closeDonationModal();
+    };
+    document.body.appendChild(modalBackdrop);
+  }
+
+  const momoHtml = (don.mobileMoney || []).map(m => `
+    <div class="pay-channel-card">
+      <div style="flex:1;min-width:0">
+        <span class="pay-channel-badge ${m.provider && m.provider.toLowerCase().includes('mtn') ? 'mtn' : 'airtel'}">
+          ${escapeHtml(m.provider || 'Mobile Money')}
+        </span>
+        <div class="pay-channel-num">
+          <span>${escapeHtml(m.number || m.merchantCode)}</span>
+        </div>
+        <div style="font-size:12px;color:var(--navy);font-weight:700">
+          Account Name: <span style="color:var(--red)">${escapeHtml(m.accountName || 'Daystar United FC')}</span>
+        </div>
+        ${m.merchantCode ? `<div style="font-size:11px;color:var(--text-muted);margin-top:2px">Merchant / MoMoPay ID: <b>${escapeHtml(m.merchantCode)}</b></div>` : ''}
+        ${m.instructions ? `<div style="font-size:11px;color:var(--text-muted);margin-top:3px">${escapeHtml(m.instructions)}</div>` : ''}
+      </div>
+      <div>
+        <button type="button" class="pay-copy-btn" onclick="copyDonationValue('${escapeHtml(m.number || m.merchantCode)}', this)">
+          <span>📋 Copy Number</span>
+        </button>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--text-muted);font-size:12px;text-align:center">No Mobile Money accounts registered yet.</p>';
+
+  const bankHtml = (don.banks || []).map(b => `
+    <div class="pay-channel-card">
+      <div style="flex:1;min-width:0">
+        <span class="pay-channel-badge bank">${escapeHtml(b.bankName || 'Commercial Bank')}</span>
+        <div class="pay-channel-num">
+          <span>${escapeHtml(b.accountNumber)}</span>
+        </div>
+        <div style="font-size:12px;color:var(--navy);font-weight:700">
+          Account Name: <span style="color:var(--red)">${escapeHtml(b.accountName || 'Daystar United Football Club')}</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);display:flex;gap:12px;flex-wrap:wrap;margin-top:2px">
+          ${b.branch ? `<span>Branch: <b>${escapeHtml(b.branch)}</b></span>` : ''}
+          ${b.currency ? `<span>Currency: <b>${escapeHtml(b.currency)}</b></span>` : ''}
+          ${b.swift ? `<span>SWIFT: <b>${escapeHtml(b.swift)}</b></span>` : ''}
+        </div>
+      </div>
+      <div>
+        <button type="button" class="pay-copy-btn" onclick="copyDonationValue('${escapeHtml(b.accountNumber)}', this)">
+          <span>📋 Copy Account #</span>
+        </button>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--text-muted);font-size:12px;text-align:center">No bank accounts registered yet.</p>';
+
+  modalBackdrop.innerHTML = `
+    <div class="donation-modal" role="dialog" aria-labelledby="donationModalHeading" aria-modal="true">
+      <button type="button" class="modal-close-btn" onclick="closeDonationModal()" aria-label="Close Donation Details">✕</button>
+
+      <div class="donation-modal-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="assets/daystar-logo.jpg" alt="Daystar Crest" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--gold)" onerror="this.src='https://via.placeholder.com/48/071d3b/ffffff?text=DFC'">
+          <div>
+            <span class="academy-head-tag" style="background:#fef3c7;color:#b45309;font-size:9.5px;padding:2px 8px;margin-bottom:2px">OFFICIAL PAYMENT CHANNELS</span>
+            <h3 id="donationModalHeading" style="font-size:20px;font-weight:900;color:var(--navy);margin:0">${escapeHtml(don.heading || 'Support Daystar United FC')}</h3>
+            <small style="color:var(--text-muted);font-size:11px">Direct Club Account · Oluko Subcounty · Arua City</small>
+          </div>
+        </div>
+        <p style="font-size:12.5px;color:var(--text-muted);margin:12px 0 0;line-height:1.55">
+          ${escapeHtml(don.subheading || '')}
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="donation-tabs">
+        <button type="button" class="donation-tab-btn active" id="tabBtnMomo" onclick="switchDonationTab('momo')">
+          <span>📱 Mobile Money (${(don.mobileMoney || []).length})</span>
+        </button>
+        <button type="button" class="donation-tab-btn" id="tabBtnBank" onclick="switchDonationTab('bank')">
+          <span>🏦 Bank Wire & Deposit (${(don.banks || []).length})</span>
+        </button>
+      </div>
+
+      <!-- MoMo Panel -->
+      <div id="donationTabMomo" class="donation-tab-panel">
+        <div class="donation-cards-grid">
+          ${momoHtml}
+        </div>
+      </div>
+
+      <!-- Bank Panel -->
+      <div id="donationTabBank" class="donation-tab-panel" style="display:none">
+        <div class="donation-cards-grid">
+          ${bankHtml}
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="donation-modal-footer">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-size:22px">📞</span>
+          <div style="flex:1;min-width:0">
+            <b style="font-size:12px;color:var(--navy);display:block">Donation Acknowledgement & Treasurer Secretariat</b>
+            <small style="font-size:11px;color:var(--text-muted)">
+              For official receipting or WhatsApp confirmation: <b>${escapeHtml(don.treasurerName || 'Club Secretariat')}</b> at <a href="tel:${escapeHtml(don.treasurerPhone || '+256772123456')}" style="color:var(--navy);font-weight:700">${escapeHtml(don.treasurerPhone || '+256 772 123 456')}</a>
+            </small>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  modalBackdrop.style.display = 'grid';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDonationModal() {
+  const modalBackdrop = document.getElementById('donationModalBackdrop');
+  if (modalBackdrop) modalBackdrop.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function switchDonationTab(tab) {
+  const momoPanel = document.getElementById('donationTabMomo');
+  const bankPanel = document.getElementById('donationTabBank');
+  const momoBtn = document.getElementById('tabBtnMomo');
+  const bankBtn = document.getElementById('tabBtnBank');
+
+  if (tab === 'momo') {
+    if (momoPanel) momoPanel.style.display = 'block';
+    if (bankPanel) bankPanel.style.display = 'none';
+    if (momoBtn) momoBtn.classList.add('active');
+    if (bankBtn) bankBtn.classList.remove('active');
+  } else {
+    if (momoPanel) momoPanel.style.display = 'none';
+    if (bankPanel) bankPanel.style.display = 'block';
+    if (momoBtn) momoBtn.classList.remove('active');
+    if (bankBtn) bankBtn.classList.add('active');
+  }
+}
+
+function copyDonationValue(val, btn) {
+  const clean = String(val || '').replace(/\s+/g, '');
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(clean);
+  } else {
+    const input = document.createElement('input');
+    input.value = clean;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+
+  if (btn) {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span>✓ Copied!</span>';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
 }
 
 // Auto-detect page and initialize

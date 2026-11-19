@@ -346,4 +346,11 @@ tbody tr:last-child td{border-bottom:0}
 .cms-badge-cat{font-size:10px;font-weight:800;padding:3px 7px;border-radius:4px;text-transform:uppercase}
 .img-preview-box{border:2px dashed #cbd5e1;border-radius:8px;padding:12px;text-align:center;background:#f8fafc;margin-top:8px}
 
+/* Public Donation Accounts Admin Styling */
+.cms-item-card{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;position:relative;transition:border-color .15s}
+.cms-item-card:hover{border-color:#cbd5e1}
+.cms-item-card .field label{font-weight:700;color:var(--navy);margin-bottom:4px}
+.cms-item-card input, .cms-item-card textarea{background:#fff}
+
+
 
